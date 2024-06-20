@@ -12,7 +12,7 @@ class EditoraModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["nome","email","telefone"];
+    protected $allowedFields    = ['nome','email','telefone'];
 
     protected bool $allowEmptyInserts = false;
 

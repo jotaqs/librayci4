@@ -1,59 +1,54 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca EEEP Walter Ramos de Araújo</title>
+    <title>Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            font-family: 'Montserrat', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; /* Negrito */
+        }
+
+        
+    </style>
+</head>
+</html>
+
+<head>
+<style>
+        body, html {
+            height: 100%;
             margin: 0;
-            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .header {
-            background-color: #004080;
-            color: white;
-            padding: 20px;
+        .conteudo-centralizado {
             text-align: center;
-        }
-        .container {
-            padding: 20px;
-        }
-        .welcome-message {
-            background-color: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .welcome-message h1 {
-            color: #004080;
-        }
-        .button {
-            background-color: #004080;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 10px;
-        }
-        .button:hover {
-            background-color: #003366;
         }
     </style>
 </head>
-<body>
-    <div class="header">
-        <h1>Biblioteca EEEP Walter Ramos de Araújo</h1>
+<div class="conteudo-centralizado">
+<div class="container p-4">
+    <center>
+    <h1>Bem-vindo, <?php echo esc($nome); ?>!</h1>
+    <br>
+    <a class="btn btn-dark" href="/index.php/Aluno/index" role="button">Aluno</a>
+    <a class="btn btn-dark" href="/index.php/Autor/index" role="button">Autor</a>
+    <a class="btn btn-dark" href="/index.php/Editora/index" role="button">Editora</a>
+    <a class="btn btn-dark" href="/index.php/Emprestimo/index" role="button">Empréstimo</a>
+    <a class="btn btn-dark" href="/index.php/Livro/index" role="button">Livro</a>
+    <a class="btn btn-dark" href="/index.php/Obra/index" role="button">Obra</a>
+    <a class="btn btn-dark" href="/index.php/Usuario/index" role="button">Usuário</a>
+    <a href="<?= base_url('login/logout') ?>" class="btn btn-dark" method="post">Sair</a>
+
     </div>
-    <div class="container">
-        <div class="welcome-message">
-            <h1>Bem-vindo!</h1>
-            <p>Seja bem-vindo à biblioteca da EEEP Walter Ramos de Araújo. Aqui, promovemos o conhecimento, a leitura e a pesquisa. Nossa biblioteca oferece uma vasta coleção de livros, revistas, jornais e acesso a materiais digitais para enriquecer o aprendizado de nossos alunos.</p>
-            <p>Estamos comprometidos em criar um ambiente acolhedor e inspirador para todos os estudantes. Sinta-se à vontade para explorar nossos recursos e participar de nossos eventos e atividades.</p>
-            
-        </div>
+</center>
+</div>   
     </div>
-</body>
-</html>

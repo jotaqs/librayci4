@@ -1,115 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aluno</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; /* Negrito */
+        }
+    </style>
+    <script>
+        function formatarCPF() {
+            // Obtém o valor atual do campo CPF
+            var cpf = document.getElementById('cpf').value;
+            
+            // Remove caracteres não numéricos
+            cpf = cpf.replace(/\D/g, '');
+            
+            // Aplica a formatação
+            cpf = cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
+            
+            // Atualiza o valor no campo
+            document.getElementById('cpf').value = cpf;
+        }
+    </script>
+</head>
+</html>
 
-    
-    <div class="container">
-        <h2>Aluno</h2>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Form"> Novo <i class="fas fa-plus"></i></button>
-    <table class="table">
-    </div>
-    <thead>
-       <tr>
-        <td>ID</td>
-        <td>CPF</td>
-        <td>NOME</td>
-        <td>EMAIL</td>
-        <td>TELEFONE</td>
-        <td>TURMA</td>
-    </thead>
-    <TBody>
-        <?php foreach($listaAlunos as $a) : ?>
-            <tr>
-                <td>
-                    <?=$a['id']?>
-                </td>
-                <td>
-                    <?=$a['cpf']?>
-                </td>
-                <td>
-                    <?=$a['nome']?>
-                </td>
-                <td>
-                    <?=$a['email']?>
-                </td>
-                <td>
-                    <?=$a['telefone']?>
-                </td>
-                <td>
-                    <?=$a['turma']?>
-                </td>
-                <td>
-                    <?=anchor("Aluno/editar/".$a['id']," ",["class"=>"fas fa-edit btn btn-primary"])?>
-                    <?=anchor("Aluno/excluir/".$a["id"]," ",["class"=>" fas fa-trash-alt btn btn-outline-danger"])?>
 
-               </td>
+<div class="container">
+    <h2>Alunos</h2>
+    <!-- Button do Modal -->
+    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Novo
+    </button>
 
-                  
-               </td>
-            </tr>
-        </TBody>
-        <?php endforeach?>
-</table>
-
-<!-- Modal -->
-<div class="modal fade" id="Form" tabindex="-1" aria-labelledby="Form" aria-hidden="true">
-        <?=form_open("Aluno/cadastrar")?>
-    <div class="modal-dialog">
-
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Novo Autor</h1>
-
+    <!-- Blocos de Alunos -->
+    <div class="row mt-3">
+        <?php foreach ($listaAlunos as $au) : ?>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= anchor("Aluno/editar/".$au['id'], $au['nome']) ?></h5>
+                        <p class="card-text">ID: <?= $au['id'] ?></p>
+                        <p class="card-text">CPF: <?= $au['cpf'] ?></p>
+                        <p class="card-text">Email: <?= $au['email'] ?></p>
+                        <p class="card-text">Telefone: <?= $au['telefone'] ?></p>
+                        <p class="card-text">Turma: <?= $au['turma'] ?></p>
+                    </div>
+                </div>
             </div>
-                <div class="modal-body">
-                   <div class="form-group">
-                        <label for="nome">CPF</label>
-                        <input id="cpf" name="cpf" type="text"  id="cpf" maxlength="14" placeholder="000.000.000-00" class="form-control" r required oninvalid="this.setCustomValidity('Preencha o CPF')" oninput="this.setCustomValidity('')">
-                   </div>
-                   <div class="form-group">
-                        <label for="nome">Nome</label>
-                        <input id="nome" name="nome" type="text" class="form-control" required oninvalid="this.setCustomValidity('Preencha o Nome')"  oninput="this.setCustomValidity('')">
-                   </div>
-                   <div class="form-group">
-                        <label for="nome">Email</label>
-                        <input id="email" name="email" type="text" class="form-control" required oninvalid="this.setCustomValidity('Preencha o Email')"  oninput="this.setCustomValidity('')">
-                   </div>
-                   <div class="form-group">
-                        <label for="nome">Telefone</label>
-                        <input id="telefone" name="telefone" type="text" class="form-control" required oninvalid="this.setCustomValidity('Preencha o Telefone')"  oninput="this.setCustomValidity('')">
-                   </div>
-                   <div class="form-group">
-                        <label for="nome">Turma</label>
-                        <select class="form-control" id="turma" name="turma" value="turma" required>
-                            <option value="1A">1A</option>
-                            <option value="1B">1B</option>
-                            <option value="1C">1C</option>
-                            <option value="1D">1D</option>
-                            <option value="2A">2A</option>
-                            <option value="2B">2B</option>
-                            <option value="2C">2C</option>
-                            <option value="2D">2D</option>
-                            <option value="3A">3A</option>
-                            <option value="3B">3B</option>
-                            <option value="3C">3C</option>
-                            <option value="3D">3D</option>
-                        </select>
-                   </div>
-                        <div class="modal-footer">
-                        <?=anchor("Aluno/index/","Cancelar", ["class"=>"btn btn-outline-secondary"])?>
-                            <button type="submit" class="btn btn-primary">Cadastrar</button>
-                        </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+            
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1D" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<?=form_open("Aluno/cadastrar")?> 
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Novo Aluno</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <div class="form-group">
+    <label for="cpf">CPF:</label>
+    <input class='form-control' type="text" id='cpf' name='cpf' oninput="formatarCPF()" maxlength="11">
+</div>
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input class='form-control' type="text" id='nome' name='nome'>
+                </div>
+                <div class="form-group">
+                    <label for="e-mail">Email:</label>
+                    <input class='form-control' type="text" id='email' name='email'>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone:</label>
+                    <input class='form-control' type="text" id='telefone' name='telefone'>
+                </div>
+                <div class="form-group">
+                    <label for="turma">Turma:</label>
+                    <select class='form-control' name="turma" id="turma">
+                        <option hidden>Selecione Uma Turma...</option>
+                        <option value="1A">1A</option>
+                        <option value="1B">1B</option>
+                        <option value="1C">1C</option>
+                        <option value="1D">1D</option>
+                        <option value="2A">2A</option>
+                        <option value="2B">2B</option>
+                        <option value="2C">2C</option>
+                        <option value="2D">2D</option>
+                        <option value="3A">3A</option>
+                        <option value="3B">3B</option>
+                        <option value="3C">3C</option>
+                        <option value="3D">3D</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-dark">Cadastrar</button>
+            </div>
         </div>
     </div>
-    <?=form_close()?>
-</div>  
- <script>
-        function formatCPF(cpf) {
-            cpf = cpf.replace(/\D/g, ""); // Remove todos os caracteres não numéricos
-            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2"); // Coloca um ponto entre o terceiro e o quarto dígitos
-            cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2"); // Coloca um ponto entre o sexto e o sétimo dígitos
-            cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2"); // Coloca um hífen entre o nono e o décimo dígitos
-            return cpf;
-        }
-
-        document.getElementById('cpf').addEventListener('input', function (e) {
-            e.target.value = formatCPF(e.target.value);
-        });
-    </script>
+        <?=form_close()?>
+    </div>
+</div>

@@ -12,7 +12,7 @@ class AlunoModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ["cpf","nome","email","telefone","turma"];
+    protected $allowedFields    = ['cpf','nome','email','telefone','turma'];
 
     protected bool $allowEmptyInserts = false;
 

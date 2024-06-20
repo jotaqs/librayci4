@@ -12,7 +12,7 @@ class AutorObraModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_autor','id_obra'];
+    protected $allowedFields    = ['id_obra','id_autor'];
 
     protected bool $allowEmptyInserts = false;
 

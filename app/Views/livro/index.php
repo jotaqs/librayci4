@@ -1,84 +1,100 @@
-<!-- indica o inicio do index, "o corpo do site " -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; /* Negrito */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Livros</h2>
+    <!-- Button do Modal -->
+    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Novo
+    </button>
 
-    <div class="container">
-        <h2>Livro</h2>
-
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Form"> Novo <i class="fas fa-plus"></i></button>
-    <table class="table">
-    </div>
-    <thead>
-       <tr>
-        <td>ID</td>
-        <td>Quantidades Disponivel</td>
-        <td>Status</td>
-        <td>Obra</td>
-
-    </thead>
-    <TBody>
-        <?php foreach($listaLivros as $l) :?>
-            
-            <tr>
-                <td>
-                    <?=$l['id']?>
-                </td>
-                <td>
-                    <?=$l['disponivel']?>
-                </td>
-                <td>
-                    <?=$l['status']?>
-                </td>
-                <td>
-                <?php foreach($listaObras as $obra) : ?>
-                    <?php if($obra['id'] == $l['id_obra']) : ?>
-                        <?=$obra['titulo']?> 
-                    <?php endif; ?>
-                <?php endforeach; ?>
-                </td>
-                    <td>
-                    <?=anchor("Livro/editar/".$l['id']," ",["class"=>"fas fa-edit btn btn-primary"])?>
-                    <?=anchor("Livro/excluir/".$l["id"]," ",["class"=>"fas fa-trash-alt btn btn-outline-danger"])?>
-               </td>
-            </tr>
-        <?php endforeach?>
-    </TBody>
-</table>
-
-<!-- Modal -->
-<div class="modal fade" id="Form" tabindex="-1" aria-labelledby="Form" aria-hidden="true">
-        <?=form_open("Livro/cadastrar")?>
-    <div class="modal-dialog">
-
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Nova Livro</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-                <div class="modal-body">
-                   <div class="form-group">
-                        <label for="disponivel">Disponivel</label>
-                        <input id="disponivel" name="disponivel" type="number" class="form-control" min="0" required>
-                   </div>
-                   <div class="form-group">
-                        <label for="status">status</label>
-                        <input id="status" name="status" type="text" class="form-control" required>
-                   </div>
-                   <div class="form-group" >
-                      <label for="obra">obra</label>
-                      <select class="form-control" id="id_obra" name="id_obra">
-                        <option selected hidden>Selecione uma obra</option>
-                        <?php foreach($listaObras as $obra) : ?>
-                            <option value="<?=$obra['id']?>"><?=$obra['titulo']?></option>
-                            <?php endforeach ?>
-                      </select>
+    <!-- Blocos de Livros -->
+    <div class="row mt-3">
+        <?php foreach ($listaLivro as $li) : ?>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <?php 
+                            $obra = array_filter($listaObra, function($o) use ($li) {
+                                return $o['id'] == $li['id_obra'];
+                            });
+                            if(count($obra) > 0){
+                                $obra = array_values($obra)[0];
+                                // Adicionando o atributo data-nome-obra para armazenar o nome da obra
+                                echo '<h5 class="card-title" data-nome-obra="' . htmlspecialchars($obra['titulo']) . '">';
+                                echo anchor("Livro/editar/".$li['id'], $obra['titulo'] .' #'.$li['id']);
+                                echo '</h5>';
+                            }
+                        ?>
+                        <p class="card-text">Disponível: <?= $li['disponivel'] ?></p>
+                        <p class="card-text">Status: <?= $li['status'] ?></p>
                     </div>
-
                 </div>
-                        <div class="modal-footer">
-                        <?=anchor("Livro/index/","Cancelar", ["class"=>"btn btn-outline-secondary"])?>
-                            <button type="submit" class="btn btn-primary">Cadastrar</button>
-                        </div>
-        </div>
+            </div>
+        <?php endforeach; ?>
     </div>
-    <?=form_close()?>
 </div>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <?=form_open("Livro/cadastrar")?> 
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Novo Livro</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <div class="form-group">
+            <div class="form-group">
+                    <label for="telefone">Obra:</label>
+                    <select class='form-select' name="id_obra" id="id_obra" required>
+                        <option>Selecione uma obra</option>
+                        <?php foreach($listaObra as $obra) : ?>
+                            <option value="<?=$obra['id']?>"><?=$obra['titulo']?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+                    <label for="telefone">Nome:</label>
+                    <select class='form-select' name="nome" id="nome" required>
+                        <option>Selecione</option>
+                        <?php foreach($listaObra as $obra) : ?>
+                            <option value="<?=$obra['titulo']?>"><?=$obra['titulo']?></option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="disponivel">Disponivel:</label>
+                    <input class='form-control' type="text" id='disponivel' name='disponivel'>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <input class='form-control' type="text" id='status' name='status'>
+                </div>
+            
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-dark">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+        <?=form_close()?>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -1,70 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editora</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700; /* Negrito */
+        }
+    </style>
+</head>
+</html>
 
-    
-    <div class="container">
-        <h2>Editora</h2>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Form"> Novo(a) <i class="fas fa-plus"></i></button>
-    <table class="table">
-    </div>
-    <thead>
-       <tr>
-        <td>ID</td>
-        <td>NOME</td>
-        <td>EMAIL</td>
-        <td>TELEFONE</td>
-    </thead>
-    <TBody>
-        <?php foreach($listaEditora as $a) : ?>
-            <tr>
-                <td>
-                    <?=$a['id']?>
-                </td>
-                <td>
-                    <?=$a['nome']?>
-                </td>
-                <td>
-                    <?=$a['email']?>
-                </td>
-                <td>
-                    <?=$a['telefone']?>
-                </td>
-                <td>
-                    <?=anchor("Editora/editar/".$a['id']," ",["class"=>"fas fa-edit btn btn-primary"])?>
-                    <?=anchor("Editora/excluir/".$a["id"]," ",["class"=>"fas fa-trash-alt btn btn-outline-danger"])?>
-               </td>
-            </tr>
-        <?php endforeach?>
-    </TBody>
-</table>
 
-<!-- Modal -->
-<div class="modal fade" id="Form" tabindex="-1" aria-labelledby="Form" aria-hidden="true">
-        <?=form_open("Editora/cadastrar")?>
-    <div class="modal-dialog">
+<div class="container">
+    <h2>Editoras</h2>
+    <!-- Button do Modal -->
+    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Novo
+    </button>
 
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Nova Editora</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!-- Blocos de Editoras -->
+    <div class="row mt-3">
+        <?php foreach ($listaEditora as $e) : ?>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><?= anchor("Editora/editar/".$e['id'], $e['nome']) ?></h5>
+                        <p class="card-text">ID: <?= $e['id'] ?></p>
+                        <p class="card-text">Email: <?= $e['email'] ?></p>
+                        <p class="card-text">Telefone: <?= $e['telefone'] ?></p>
+                    </div>
+                </div>
             </div>
-                <div class="modal-body">
-                   <div class="form-group">
-                        <label for="nome">Nome</label>
-                        <input id="nome" name="nome" type="text" class="form-control" required>
-                   </div>
-                   <div class="form-group">
-                        <label for="nome">Email</label>
-                        <input id="email" name="email" type="text" class="form-control" required>
-                   </div>
-                   <div class="form-group">
-                        <label for="nome">Telefone</label>
-                        <input id="telefone" name="telefone" type="text" class="form-control" required>
-                   </div>
-                        <div class="modal-footer">
-                        <?=anchor("Editora/index/","Cancelar", ["class"=>"btn btn-outline-secondary"])?>
-                            <button type="submit" class="btn btn-primary">Cadastrar</button>
-                        </div>
-        </div>
+        <?php endforeach; ?>
     </div>
-    <?=form_close()?>
 </div>
 
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<?=form_open("Editora/cadastrar")?> 
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Nova Editora</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input class='form-control' type="text" id='nome' name='nome'>
+                </div>
+                <div class="form-group">
+                    <label for="e-mail">Email:</label>
+                    <input class='form-control' type="text" id='email' name='email'>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone:</label>
+                    <input class='form-control' type="text" id='telefone' name='telefone'>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-dark">Cadastrar</button>
+            </div>
+        </div>
+    </div>
+        <?=form_close()?>
+    </div>
+</div>

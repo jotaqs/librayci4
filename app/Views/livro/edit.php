@@ -2,7 +2,7 @@
 <div class="container p-5">
     <div class="row">
         <div class="col-3"></div>
-        <div class="col-6 bg-dark text-white p-4" data-bs-theme="dark">
+        <div class="col-6p-4">
             <?= form_open("Livro/salvar") ?>
                 <input type="hidden" name="id" id="id" value="<?= $livro['id'] ?>">
                 <div class="row p-2">
@@ -27,7 +27,7 @@
                     </div>
                     <div class="col-10">
                     <select class="form-control" id="id_obra" name="id_obra">
-                        <?php foreach($listaObras as $obra) : ?>
+                        <?php foreach($listaObra as $obra) : ?>
                         <option selected hidden><?=$obra['titulo']?></option>
                             <option value="<?=$obra['id']?>"><?=$obra['titulo']?></option>
                             <?php endforeach ?>
@@ -38,6 +38,7 @@
                     <div class="col">
                         <div class="btn-group w-100" role="group">
                             <?= anchor("livro/index/", "Cancelar", ["class"=>"btn btn-outline-secondary"]) ?>
+                            <button type="submit" class="btn btn-danger">Excluir</button>
                             <button type="submit" class="btn btn-outline-success">Salvar</button>
                         </div>
                     </div>
